@@ -1,0 +1,59 @@
+➜ SPRINGBORD mkdir conflict
+➜  SPRINGBORD cd conflict
+➜  conflict git init
+Initialized empty Git repository in /Users/dariazelenska/Desktop/SPRINGBORD/conflict/.git/
+➜  conflict git:(main) echo intro_text > intro.txt
+➜  conflict git:(main) ✗ git add intro.txt
+➜  conflict git:(main) ✗ git commit -m "intro commit"
+[main (root-commit) c4ad5e6] intro commit
+ 1 file changed, 1 insertion(+)
+ create mode 100644 intro.txt
+ 
+➜  conflict git:(main) git checkout -b biography_branch
+Switched to a new branch 'biography_branch'
+➜  conflict git:(biography_branch) echo about_yourself_text > about.txt
+➜  conflict git:(biography_branch) ✗ git add about.txt
+➜  conflict git:(biography_branch) ✗ git commit -m "adding about yourself text"
+[biography_branch b465e9b] adding about yourself text
+ 1 file changed, 1 insertion(+)
+ create mode 100644 about.txt
+ 
+➜  conflict git:(biography_branch) git checkout main
+Switched to branch 'main'
+➜  conflict git:(main) echo experience_and_else > about.txt
+➜  conflict git:(main) ✗ git add .
+➜  conflict git:(main) ✗ git commit -m "adding about.txt on the main branch"
+[main 3d01dc6] adding about.txt on the main branch
+ 1 file changed, 1 insertion(+)
+ create mode 100644 about.txt
+ 
+➜  conflict git:(main) git merge biography_branch
+Auto-merging about.txt
+CONFLICT (add/add): Merge conflict in about.txt
+Automatic merge failed; fix conflicts and then commit the result.
+➜  conflict git:(main) ✗ git status
+On branch main
+You have unmerged paths.
+  (fix conflicts and run "git commit")
+  (use "git merge --abort" to abort the merge)
+
+Unmerged paths:
+  (use "git add <file>..." to mark resolution)
+	both added:      about.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+➜  conflict git:(main) ✗ git add .
+➜  conflict git:(main) ✗ git status
+On branch main
+All conflicts fixed but you are still merging.
+  (use "git commit" to conclude merge)
+
+Changes to be committed:
+	modified:   about.txt
+
+➜  conflict git:(main) ✗ git commit -m "fixing merge conflict"
+[main 5210bab] fixing merge conflict
+➜  conflict git:(main) git status
+On branch main
+nothing to commit, working tree clean
+➜  conflict git:(main)
