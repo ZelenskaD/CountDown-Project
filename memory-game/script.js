@@ -1,5 +1,3 @@
-document.addEventListener("DOMContentLoaded", startGame); // Start the game when the DOM is fully loaded
-
 const gameContainer = document.getElementById("game");
 
 const COLORS = [
@@ -62,6 +60,8 @@ function createDivsForColors(colorArray) {
 let clickedCards = [];
 let score = 0;
 
+let matchedIds = [];
+
 // TODO: Implement this function!
 function handleCardClick(event) {
   console.log(clickedCards.length);
@@ -80,44 +80,69 @@ function handleCardClick(event) {
       const cardTwoColor = cardTwo.className;
       const cardOneId = cardOne.id;
       const cardTwoId = cardTwo.id;
-      if (cardOneColor !== cardTwoColor || cardOneId === cardTwoId) {
-        console.log("not matched");
-        setTimeout(function () {
-          cardOne.style.backgroundColor = "rgb(167, 222, 246)";
-          cardTwo.style.backgroundColor = "rgb(167, 222, 246)";
+      if (!matchedIds.includes(cardOneId) && !matchedIds.includes(cardTwoId)) {
+        if (cardOneColor !== cardTwoColor || cardOneId === cardTwoId) {
+          console.log("not matched");
+          setTimeout(function () {
+            cardOne.style.backgroundColor = "rgb(167, 222, 246)";
+            cardTwo.style.backgroundColor = "rgb(167, 222, 246)";
+            clickedCards = [];
+          }, 1000);
+        } else if (cardOneColor === cardTwoColor && cardOneId !== cardTwoId) {
+          console.log("matched");
+          matchedIds.push(cardOneId);
+          score += 1;
+          document.getElementById("scoreDisplay").innerText = `Score: ${score}`;
           clickedCards = [];
-        }, 1000);
-      } else if (cardOneColor === cardTwoColor && cardOneId !== cardTwoId) {
-        console.log("matched");
-        score += 1;
-        document.getElementById("scoreDisplay").innerText = `Score: ${score}`;
-        clickedCards = [];
+        }
       }
     }
   }
 }
 
 function startGame() {
-  document.getElementById("startBtn").addEventListener("click", startGame);
+  clearScore();
   while (gameContainer.firstChild) {
     gameContainer.removeChild(gameContainer.firstChild);
   }
-  let shuffledColors = shuffle(COLORS.slice());
+  function clearScore() {
+    score = 0;
+    if (scoreDisplay) {
+      scoreDisplay.textContent = score;
+    }
+  }
 
+  let shuffledColors = shuffle(COLORS.slice());
   // when the DOM loads
   createDivsForColors(shuffledColors);
-}
-
-function setupGame() {
-  const gameContainer = document.getElementById("game");
-  while (gameContainer.firstChild) {
-    gameContainer.removeChild(gameContainer.firstChild);
+  for (let child of gameContainer.children) {
+    let color = child.className;
+    child.style.backgroundColor = color;
   }
-  let shuffledItems = shuffle(COLORS);
-  createDivsForColors(shuffledItems);
-  score = 0;
+  setTimeout(function () {
+    for (let child of gameContainer.children) {
+      child.style.backgroundColor = "rgb(167, 222, 246)";
+    }
+  }, 3000);
 }
 
-document.getElementById("resetBtn").addEventListener("click", setupGame);
+function resetGame() {
+  if (score === 5) {
+    console.log("clickedCards.length");
+    const gameContainer = document.getElementById("game");
+    while (gameContainer.firstChild) {
+      gameContainer.removeChild(gameContainer.firstChild);
+    }
+    score = 0;
+    if (scoreDisplay) {
+      scoreDisplay.textContent = score;
+    }
+    let shuffledItems = shuffle(COLORS);
+    createDivsForColors(shuffledItems);
+    matchedIds = [];
+  }
+}
 
-document.addEventListener("DOMContentLoaded", setupGame);
+createDivsForColors(shuffledColors);
+document.getElementById("startBtn").addEventListener("click", startGame);
+document.getElementById("resetBtn").addEventListener("click", resetGame);

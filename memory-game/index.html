@@ -2,22 +2,38 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Caveat&family=Honk&family=Josefin+Sans&family=Libre+Baskerville&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Caveat&family=Honk&family=Josefin+Sans&family=Libre+Baskerville&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="style.css" />
     <title>Memory Game!</title>
-   
   </head>
   <body>
-    <h1> Memory Game!</h1>
-    <button id="scoreBtn"> Show Score</button>
-    <div id="scoreDisplay"> Score: 0 </div>
+    <h1>Memory Game!</h1>
+    <button id="startBtn">Start Game</button>
+    <!--<div id="colorBtn">
+     <button id="highScore">HighScore</button>
+      <div id="scoreHighDisplay">0</div>-->
 
-    <button id ="startBtn">Start Game</button>
-    <div id="game">
+      <button id="scoreBtn">Show Score</button>
+      <div id="scoreDisplay">0</div>
     </div>
-    <button id="resetBtn"> Restart Game</button>
+
+    <div id="game"></div>
+    <button id="resetBtn">Restart Game</button>
+    <div id="textContainer">
+      <h1>Let's make rules</h1>
+     <ul>
+      <li>When you click on "Start Game", you have only 5 sec for remember position of colors!</li>
+      <li>For every pair matches you get 1 point.</li>
+      <li>You can Restart your game only when you get score in 5 points.</li>
+     
+     </ul>
+    </div>
+
     <script src="script.js"></script>
   </body>
 </html>

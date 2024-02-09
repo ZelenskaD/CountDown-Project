@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Generator Meme</title>
+  </head>
+  <body>
+    <div id="memeForm">
+      <h1>CAN I MAKE A MEME?</h1>
+      <h2>Fill out the form to start creating memes!</h2>
+      <form id="memeForm">
+        <label for="topText"> Text On Top:</label>
+        <input
+          type="text"
+          id="topText"
+          placeholder="(Optional) What text do you want at the top of the meme?"
+        />
+
+        <label for="bottomText">Text on Bottom:</label>
+        <input
+          type="text"
+          id="bottomText"
+          placeholder="(Optional) What text do you want at the bottom of the meme?"
+        />
+
+        <input type="url" id="imageSpace" placeholder="Enter image URL" />
+        <button type="button" id="addMemeBtn">Add Meme</button>
+      </form>
+      <div id="memeContainer"></div>
+    </div>
+  </body>
+</html>
