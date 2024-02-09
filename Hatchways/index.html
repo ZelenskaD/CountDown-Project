@@ -3,31 +3,31 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="app.css" />
     <title>Generator Meme</title>
   </head>
   <body>
-    <div id="memeForm">
+    <div id="memeGenerator">
       <h1>CAN I MAKE A MEME?</h1>
       <h2>Fill out the form to start creating memes!</h2>
-      <form id="memeForm">
-        <label for="topText"> Text On Top:</label>
-        <input
-          type="text"
-          id="topText"
-          placeholder="(Optional) What text do you want at the top of the meme?"
-        />
-
-        <label for="bottomText">Text on Bottom:</label>
-        <input
-          type="text"
-          id="bottomText"
-          placeholder="(Optional) What text do you want at the bottom of the meme?"
-        />
-
-        <input type="url" id="imageSpace" placeholder="Enter image URL" />
-        <button type="button" id="addMemeBtn">Add Meme</button>
-      </form>
+      <label for="topText">Text On Top:</label>
+      <input
+        type="text"
+        id="topText"
+        placeholder="(Optional) What text do you want at the top of the meme?"
+      />
+      <label for="bottomText">Text on Bottom:</label>
+      <input
+        type="text"
+        id="bottomText"
+        placeholder="(Optional) What text do you want at the bottom of the meme?"
+      />
+      <label for="imageLink">Image Link:</label>
+      <input type="url" id="imageLink" placeholder="Enter Image URL" />
+      <button id="addMeme">Add Meme</button>
       <div id="memeContainer"></div>
+      <div id="imageDisplay"></div>
     </div>
+    <script src="app.js"></script>
   </body>
 </html>
