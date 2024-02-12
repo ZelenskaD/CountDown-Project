@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Your Title</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poor+Story&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poor+Story&family=Roboto+Slab&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="title">
+      <h1>Meme Gene</h1>
+    </div>
+
+    <div id="mainContainer">
+      <form>
+        <label for="topText" id="tT">Text On Top: </label>
+        <input
+          type="text"
+          id="topText"
+          class="myForm"
+          placeholder="What text do you want on the Top?"
+        />
+
+        <label for="bottomText" id="bmText"> Text On Bottom: </label>
+        <input
+          type="text"
+          id="bottomText"
+          class="myForm"
+          placeholder="What text do you want on the bottom?"
+        />
+
+        <label for="image" id="link"> Image Link: </label>
+        <input
+          type="url"
+          id="image"
+          class="myForm"
+          placeholder="Just give here your LINK "
+        />
+      </form>
+
+      <button type="button" id="addMeme">Add Meme</button>
+    </div>
+
+    <div id="memeContainer"></div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
