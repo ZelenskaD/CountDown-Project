@@ -80,3 +80,6 @@ h1 {
 .meme .filler {
   height: 33.333%;
 }
+.filler h1 {
+  margin-top: 0%;
+}
