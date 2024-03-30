@@ -821,63 +821,63 @@
 //   console.log(`SORRY DON'T FEEL LIKE IT!`);
 // }
 
-class Triangle {
-  constructor(a, b, c) {
-    console.log("INSIDE TRIANGLE CONSTRUCTOR!");
-    // Check if sides are positive numbers
-    if (![a, b, c].every((side) => Number.isFinite(side) && side > 0)) {
-      throw new Error("Sides must be positive numbers!");
-    }
+// class Triangle {
+//   constructor(a, b, c) {
+//     console.log("INSIDE TRIANGLE CONSTRUCTOR!");
+//     // Check if sides are positive numbers
+//     if (![a, b, c].every((side) => Number.isFinite(side) && side > 0)) {
+//       throw new Error("Sides must be positive numbers!");
+//     }
 
-    this.a = a;
-    this.b = b; // pattern
-    this.c = c;
-  }
+//     this.a = a;
+//     this.b = b; // pattern
+//     this.c = c;
+//   }
 
-  greet() {
-    console.log("HELLO FROM TRIANGLE!");
-  }
+//   greet() {
+//     console.log("HELLO FROM TRIANGLE!");
+//   }
 
-  display() {
-    return `Triangle with sides of ${this.a}, ${this.b}, and ${this.c}`;
-  }
+//   display() {
+//     return `Triangle with sides of ${this.a}, ${this.b}, and ${this.c}`;
+//   }
 
-  getArea() {
-    const { a, b, c } = this;
-    const s = (a + b + c) / 2;
-    return Math.sqrt(s * (s - a) * (s - b) * (s - c));
-  }
+//   getArea() {
+//     const { a, b, c } = this;
+//     const s = (a + b + c) / 2;
+//     return Math.sqrt(s * (s - a) * (s - b) * (s - c));
+//   }
 
-  isBig() {
-    return this.getArea() > 50;
-  }
-}
+//   isBig() {
+//     return this.getArea() > 50;
+//   }
+// }
 
-class RightTriangle extends Triangle {
-  constructor(a, b, c) {
-    // Check if the triangle satisfies the Pythagorean theorem
-    if (a * a + b * b !== c * c) {
-      throw new Error("Invalid C side for right triangle!");
-    }
+// class RightTriangle extends Triangle {
+//   constructor(a, b, c) {
+//     // Check if the triangle satisfies the Pythagorean theorem
+//     if (a * a + b * b !== c * c) {
+//       throw new Error("Invalid C side for right triangle!");
+//     }
 
-    // Log a message indicating that the constructor is called
-    console.log("INSIDE RIGHT TRIANGLE CONSTRUCTOR!");
+//     // Log a message indicating that the constructor is called
+//     console.log("INSIDE RIGHT TRIANGLE CONSTRUCTOR!");
 
-    // Call the constructor of the parent class (Triangle)
-    super(a, b, c);
-    this.hypot = c;
-  }
+//     // Call the constructor of the parent class (Triangle)
+//     super(a, b, c);
+//     this.hypot = c;
+//   }
 
-  // Method to check if the triangle is a right triangle
-  isRightTriangle() {
-    return true;
-  }
+//   // Method to check if the triangle is a right triangle
+//   isRightTriangle() {
+//     return true;
+//   }
 
-  // Override the display method to provide specific information for right triangles
-  display() {
-    return "Right " + super.display();
-  }
-}
+//   // Override the display method to provide specific information for right triangles
+//   display() {
+//     return "Right " + super.display();
+//   }
+// }
 
 // const myRightTriangle = new RightTriangle(3,4,5)
 
@@ -897,14 +897,220 @@ class RightTriangle extends Triangle {
 // secondTri.a = 9; new
 // secondTri.b = 12;
 
-
-
-
 //=========================Car OO Challenge /Part One
 
+// class Vehicle{
+//   constructor(make, model, year){
 
-class Vehicle{
-  constructor(make, model, year){
-    
-  }
-}
+//   }
+// }
+
+// const cat = {
+//   name: "Blue", //window.name has own name default
+//   breed: "Scottish Fold",
+// //   dance: function (dance) {
+// //     console.log("THIS IS:", this);
+// //     console.log(`Meow, I am ${this.breed} and I like to ${dance}`);
+// //   },
+// // };
+// // cat.dance("salsa");
+
+// // // const bluesDance = cat.dance;  window obj
+// // // (window.)bluesDance("salsa");//change to var if you wanna execute window
+
+// // function whatIsThis() {
+// //   console.log("this =", this);
+// // }
+
+// // const myObj = {
+// //   func: whatIsThis,
+// //   color: "purple",
+// // };
+
+// // myObj.func(); // left - value of this
+// // window.whatIsThis();
+// // //value of this set to the window
+
+// // class Car {
+// //   constructor(name, breed) {
+// //     this.name = name;
+// //     this.breed = breed;
+// //   }
+// //   dance(danceType) {
+// //     console.log("THIS IS:", this);
+// //     console.log(`Meow, I am ${this.breed} and I like to ${dance}`);
+// //   }
+// // },
+
+// // const rocket = new Cat("rocket", "tobby");
+// // rocket.dance("tango");
+// // const rocketDance = rocket.dance;
+// // rocketDance("tango");
+
+// //==============================call()
+
+// // cat.dance.call(window, "salsa");
+// // cat.dance("salsa");
+
+// // const blueDance = cat.dance;
+// // blueDance.call(cat, "jitterbug");
+
+// // const dog = {
+// //   breed: "Black Lab",
+// //   name: "Elton",
+// // };
+// // blueDance.call(dog, "hip hop dance");
+
+// // function printThis() {
+// //   console.log("THIS =====>>>", this);
+// // }
+
+// // printThis.call(cat);
+
+// // const cat = {
+// //   name: "Blue", //window.name has own name default
+// //   breed: "Scottish Fold",
+// //   dance: function (dance) {
+// //     console.log("THIS IS:", this);
+// //     console.log(`Meow, I am ${this.breed} and I like to ${dance}`);
+// //   },
+// //   play: function (...toys) {
+// //     for (let toy of toys) {
+// //       console.log(`${this.name} plays with ${toy}`); //cat.play('string', 'my pantleg')
+// //     }
+// //   },
+// // };
+// // // const dog = {
+// // //   breed: "Black Lab",
+// // //   name: "Elton",
+// // // };
+// // // cat.play.call(dog, "bone", "my cat"); //console.dir (cat.play)
+
+// // const rocket = {
+// //   name: "Rocket",
+// //   breed: " Himalayan",
+// // };
+
+// // // blue.dance();
+// // const bDance = blue.dance; //unchanged
+// // // bDance.call(blue, "waltz");
+// // const boundDance = bDance.bind(blue); //blue - as a value of this//copy
+// // //boundDance('waltz')
+// // const rocketDance = blue.dance.bind(rocket);
+// // // rocketDance("tango");
+// // const dog = {
+// //   name: "Tyson",
+// //   breed: "Mini Aussie",
+// //   dance: rocketDance,
+// // };
+// // // dog.dance("waltz");
+
+// // const blueDisco = blue.dance.bind(blue, "disco");
+// // //exdecute blueDisco()
+// // const playsWithSocks = blue.play.bind(blue, "left sock", "right sock");
+// // //playsWithSocks('dirty sock')
+
+// // function applySalesTax(taxRate, price) {
+// //   return price + price * taxRate;
+// // }
+
+// // const applyCATax = applySalesTax.bind(null, 0.0725);
+// // const applyTXTax = applySalesTax.bind(null, 0.0625);
+
+// // const bobsMembership = {
+// //   name: "Bob",
+// //   total: 250,
+// // };
+
+// // const jillsMembreship = {
+// //   name: "Jill",
+// //   total: 899,
+// // };
+
+// // function collectNonthlyFee(fee) {
+// //   //method that passing func
+// //   const remaining = this.total - fee;
+// //   this.total = remaining;
+// //   return this.name + "remaining balance:" + remaining;
+// // }
+
+// // const collectBobsFee = collectNonthlyFee.bind(bobsMembership, 5);
+// // // bobsMembership.collectNonthlyFee(50);
+// // const collectJillsFee = collectNonthlyFee.bind(jillsMembership, 5);
+// // // jillsMembership.collectNonthlyFee(50);
+
+// const blue = {
+//   name: "Blue", //window.name has own name default
+//   breed: "Scottish Fold",
+//   dance: function (dance) {
+//     console.log("THIS IS:", this);
+//     console.log(`Meow, I am ${this.breed} and I like to ${dance}`);
+//   },
+//   play: function (...toys) {
+//     for (let toy of toys) {
+//       console.log(`${this.name} plays with ${toy}`); //cat.play('string', 'my pantleg')
+//     }
+//   },
+//   greet() {
+//     alert(`${this.name} SAYS MEOW!`);
+//   },
+// };
+// const btnA = document.querySelector("#a");
+// const btnB = document.querySelector("#b");
+// const btnC = document.querySelector("#c");
+
+// function popUp(msg) {
+//   alert("Secret message is " + msg);
+// }
+
+// // btnA.addEventListener("click", function () {
+// //   popUp("BUTTON A SAYS HI!");
+// // });
+// // btnB.addEventListener("click", function () {
+// //   popUp("BUTTON B SAYS HI!");
+// // });
+// // btnC.addEventListener("click", function () {
+// //   popUp("BUTTON C SAYS HI!");
+// // });
+
+// btnA.addEventListener("click", popUp.bind(null, "Button A Says Hi"));
+// btnB.addEventListener("click", popUp.bind(null, "Button B Says Hi"));
+// btnC.addEventListener("click", popUp.bind(null, "Button C Says Hi"));
+
+// const greeter = {
+//   msg: "I like chickenz ",
+//   sayHi: function () {
+//     alert(this.msg);
+//   },
+
+//   waitAndGreet: function (delay) {
+//     console.log(this); // Log the value of `this` (optional)
+
+//     // Define the callback function correctly
+//     let callback = function () {
+//       console.log(this); // `this` will be undefined inside the callback without binding
+//       alert(this.msg); // This will throw an error because `this` is not bound
+//     };
+
+//     // Use bind to bind the `this` context of the outer function to the callback function
+//     setTimeout(callback.bind(this), delay);
+//   },
+// };
+
+// // Usage:
+// greeter.waitAndGreet(1000); // Wait for 1000 milliseconds (1 second) before greeting
+
+const greeter = {
+  msg: "I like chickenz ",
+  sayHi: () => {
+    alert(this.msg);
+  },
+  waitAndGreet: function (delay) {
+    satTimeout(
+      function () {
+        alert(this.msg);
+      }.bind(this),
+      delay
+    );
+  },
+};
