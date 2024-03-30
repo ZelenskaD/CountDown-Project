@@ -21,22 +21,19 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     filteredFruits.forEach((fruit) => {
-      //Iterate through each filtered fruit
-      const li = document.createElement("li"); //list item el
-      const boldElement = document.createElement("b"); //bold el
+      const li = document.createElement("li");
+      const boldElement = document.createElement("b");
 
-      boldElement.textContent = text; //Set the text content of the bold element to the input text
+      boldElement.textContent = text;
 
-      li.innerHTML = fruit.replace(text, "<b>" + text + "</b>"); //replace input text with the input text wrapped in a bold
+      li.innerHTML = fruit.replace(text, "<b>" + text + "</b>");
 
       suggestions.appendChild(li); // Append the list item to the suggestions list
 
       li.addEventListener("mouseover", () => {
-        // for highlight the list item
         li.style.backgroundColor = "#FAF0E6";
       });
       li.addEventListener("mouseout", () => {
-        //remove the highlight from the list item
         li.style.removeProperty("background-color");
       });
     });
@@ -129,32 +126,26 @@ const fruits = [
 
 function search(str) {
   if (str.length === 0 || str === " ") {
-    // Check if input string = empty or consists of only whitespace
-    return []; //If so, return an empty array, indicating no matching fruits
+    return [];
   } else {
-    const lowerStr = str.toLowerCase(); // Convert the input string to lowercase to perform a case-insensitive search
-    const fruitsLowerCase = fruits.map((fruit) => fruit.toLowerCase()); //fruits name in arr = lowerCase()
-    const fruitsMatch = fruitsLowerCase.filter(
-      (
-        fruit // Filter the lowercase fruit names to find those that include the lowercased input string
-      ) => fruit.includes(lowerStr)
+    const lowerStr = str.toLowerCase();
+    const fruitsLowerCase = fruits.map((fruit) => fruit.toLowerCase());
+    const fruitsMatch = fruitsLowerCase.filter((fruit) =>
+      fruit.includes(lowerStr)
     );
 
-    return fruitsMatch; // Return fruit names that match the input (str)
+    return fruitsMatch;
   }
 }
 
 function searchHandler(e) {
-  e.preventDefault(); // Function to handle search input (prevent default behavior)
+  e.preventDefault();
 }
 
 function useSuggestion(e) {
-  // Function to use a suggestion when clicked
-  input.value = e.target.textContent; // Set the value of the input to the text content of the clicked suggestion
-
-  suggestions.innerHTML = ""; // Clear  suggestions list HTML content
-
-  ulBlock.style.display = "none"; // Hide sugg block
+  input.value = e.target.textContent;
+  suggestions.innerHTML = "";
+  ulBlock.style.display = "none";
 }
 
 suggestions.addEventListener("click", useSuggestion);

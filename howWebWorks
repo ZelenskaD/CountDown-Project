@@ -1,0 +1,26 @@
+1. The Hyper Text Transfer Protocol governs the process by which clients retrieve data from or send data to a server.
+
+2. Abbreviated as URL, a Uniform Resource Locator serves as an address for accessing various resources on the internet.
+
+3. DNS, or Domain Name System, translates human-readable URLs into corresponding IP addresses.
+
+4. The query string in a URL facilitates passing key-value pairs, formatted as `?key1=value1&key2=value2...`.
+
+5. 
+    - GET method: Retrieves data from the server, commonly used for accessing web pages and search forms.
+    - POST method: Sends data to the server, typically employed for operations that modify server-side data.
+
+6. An HTTP request refers to a client's communication to a server following the HTTP protocol, such as requesting HTML content from a site like news.google.com.
+
+7. An HTTP response denotes the server's reply to a client following the HTTP protocol, often containing HTML/CSS/JS resources.
+
+8. Headers convey additional information regarding the request or response. Examples include:
+    - Request headers: Host, User-Agent, Accept, Cookie, Cache-Control
+    - Response headers: Content-Type, Last-Modified, Set-Cookie, Cache-Control
+
+9. 
+    1. Your browser resolves the URL into an IP address using DNS.
+    2. The browser sends a request to that IP address, including relevant headers containing information about the browser and any stored cookies.
+    3. The server responds, typically with HTML and a status code indicating success (e.g., 200).
+    4. The browser constructs a Document Object Model (DOM) from the received HTML and retrieves any additional resources required (e.g., images, CSS, JavaScript).
+    5. Separate HTTP requests are made by the browser for each of these resources, with responses received from the server accordingly.
