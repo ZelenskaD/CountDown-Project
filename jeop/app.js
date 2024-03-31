@@ -1,5 +1,37 @@
 const base_API_URL = "https://rithm-jeopardy.herokuapp.com/api";
-const table = document.getElementById("jeopardy");
+
+// Local running API because the herokuapp was broken and did not return any results.
+// const base_API_URL = "http://localhost:3000/api";
+
+// categories is the main data structure for the app; it looks like this:
+
+//  [
+//    { title: "Math",
+//      clues: [
+//        {question: "2+2", answer: 4, showing: null},
+//        {question: "1+1", answer: 2, showing: null}
+//        ...
+//      ],
+//    },
+//    { title: "Literature",
+//      clues: [
+//        {question: "Hamlet Author", answer: "Shakespeare", showing: null},
+//        {question: "Bell Jar Author", answer: "Plath", showing: null},
+//        ...
+//      ],
+//    },
+//    ...
+//  ]
+
+let categories = [];
+const NUM_CLUES = 5;
+
+// Timeout function
+function timeout(ms, errorMessage = "Operation timed out") {
+  return new Promise((_, reject) =>
+    setTimeout(() => reject(new Error(errorMessage)), ms)
+  );
+}
 
 /** Get NUM_CATEGORIES random category from API.
  *
@@ -7,28 +39,16 @@ const table = document.getElementById("jeopardy");
  */
 
 async function getCategoryIds() {
-  const res = await axios.get(`${base_API_URL}/categories`, {
-    params: { count: 14 },
-  });
-
-  const shuffledCat = shuffle(res.data);
-  const selectedCategories = shuffledCat.slice(0, 6);
-  const categoryIds = selectedCategories.map((category) => category.id);
-
-  console.log(categoryIds);
-
-  return categoryIds;
-}
-
-/**
- * Fisher-Yates (also known as the Knuth) shuffle algorithm
- */
-function shuffle(array) {
-  for (let i = array.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [array[i], array[j]] = [array[j], array[i]];
+  try {
+    const response = await Promise.race([
+      axios.get(`${base_API_URL}/categories`, { params: { count: 14 } }),
+      timeout(5000),
+    ]);
+    return response.data.map((cat) => cat.id);
+  } catch (error) {
+    console.error("Error fetching categories:", error);
+    throw error;
   }
-  return array;
 }
 
 /** Return object with data about a category:
@@ -44,22 +64,62 @@ function shuffle(array) {
  */
 
 async function getCategory(catId) {
-  const res = await axios.get(`${base_API_URL}/category`, {
-    params: { id: catId },
-  });
+  try {
+    const res = await Promise.race([
+      axios.get(`${base_API_URL}/category`, { params: { id: catId } }),
+      timeout(5000),
+    ]);
 
-  const returnObject = {
-    title: res.data.title,
-    clues: res.data.clues.map((clue) => ({
-      question: clue.question,
-      answer: clue.answer,
-      showing: null,
-    })),
-  };
+    // Check if data and clues are present in the response
+    if (!res.data || !res.data.clues) {
+      throw new Error("Invalid data received");
+    }
 
-  console.log(returnObject);
+    const returnObject = {
+      title: res.data.title,
+      clues: res.data.clues.map((clue) => ({
+        question: clue.question,
+        answer: clue.answer,
+        showing: null, // Initialize showing to null
+      })),
+    };
 
-  return returnObject;
+    return returnObject;
+  } catch (error) {
+    console.error("Error fetching category details:", error);
+    throw error;
+  }
+}
+
+/** Saves the categories to the global variable categories. This is to reduce API calls
+ *
+ */
+async function saveCategories() {
+  try {
+    const categoryIds = await getCategoryIds(); // Fetch category IDs
+
+    // Fetch details for all categories
+    const allCategoriesDetails = await Promise.all(
+      categoryIds.map((catId) => getCategory(catId))
+    );
+
+    console.log(allCategoriesDetails);
+
+    categories = allCategoriesDetails;
+  } catch (error) {
+    console.error("Error saving categories to global variable:", error);
+    throw error;
+  }
+}
+
+// Fisher-Yates shuffle algorithm.
+function shuffleAndTake6() {
+  for (let i = categories.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [categories[i], categories[j]] = [categories[j], categories[i]];
+  }
+
+  return categories.slice(0, 6);
 }
 
 /** Fill the HTML table#jeopardy with the categories & cells for questions.
@@ -70,87 +130,54 @@ async function getCategory(catId) {
  *   (initally, just show a "?" where the question/answer would go.)
  */
 
-// async function fillTable() {
-//   const thead = table.querySelector("thead");
-//   const tbody = table.querySelector("tbody");
-//   // Clear existing content
-//   thead.innerHTML = "";
-//   tbody.innerHTML = "";
+function fillTable() {
+  const table = document.createElement("table");
+  table.setAttribute("id", "jeopardy"); // Ensure this ID matches your table container ID
+  table.classList.add("table", "fixed-size-table");
+  const thead = document.createElement("thead");
+  const tbody = document.createElement("tbody");
 
-async function fillTable() {
-  // Clear existing content
-  thead.innerHTML = "";
-  tbody.innerHTML = "";
+  const myCategories = shuffleAndTake6();
 
-  // Fetch category IDs
-  const categories = await getCategoryIds();
-
-  // Fetch details for all categories
-  const allCategoriesDetails = await Promise.all(
-    categories.map((catId) => getCategory(catId))
-  );
-
-  // Create the header row with category titles
+  // Setup header row for categories titles
   const headerRow = document.createElement("tr");
-  allCategoriesDetails.forEach((cat) => {
-    const catHead = document.createElement("th");
-    catHead.textContent = cat.title;
-    headerRow.appendChild(catHead);
+  myCategories.forEach((category) => {
+    const th = document.createElement("th");
+    th.textContent = category.title; // Set category title
+    headerRow.appendChild(th);
   });
-  thead.appendChild(headerRow);
+  thead.appendChild(headerRow); // Add header row to thead
 
-  // Determine the maximum number of questions
-  const maxQuestions = Math.max(
-    ...allCategoriesDetails.map((cat) => cat.clues.length)
-  );
+  table.appendChild(thead); // Add thead to table
+  table.appendChild(tbody); // Add tbody to table
 
-  // Fill tbody with placeholders for questions
-  for (let i = 0; i < maxQuestions; i++) {
+  // Setup question rows, with adjustments for click handler integration
+  for (let i = 0; i < NUM_CLUES; i++) {
+    // Assuming 5 questions per category
     const row = document.createElement("tr");
-    allCategoriesDetails.forEach((cat) => {
-      const cell = document.createElement("td");
-      cell.textContent = "?"; // Initial placeholder
-      row.appendChild(cell);
+    myCategories.forEach((category) => {
+      const td = document.createElement("td");
+      const clue = category.clues[i]; // Reference to the current clue object
+
+      const span = document.createElement("span");
+      span.innerHTML = '<i class="fa-solid fa-circle-question"></i>'; // Placeholder icon
+      td.appendChild(span);
+
+      // Adjusted to pass the current clue object and its td for state management
+      td.addEventListener("click", handleClick(clue, td));
+      row.appendChild(td);
     });
     tbody.appendChild(row);
   }
+
+  table.appendChild(thead);
+  table.appendChild(tbody);
+
+  const board = document.getElementById("board"); // Ensure this ID matches your main container for the game
+  board.innerHTML = ""; // Clear previous game content
+  board.appendChild(table); // Append the newly created table
+  board.style.display = "block"; // Ensure the board is shown
 }
-function attachClickEventsToQuestions() {
-  const questionCells = table.querySelectorAll("tbody td");
-  questionCells.forEach((cell) => {
-    cell.addEventListener("click", function () {
-      // Logic to toggle between showing question, answer, or doing nothing
-      // This would likely involve checking the `showing` property
-      // and updating both the display and the `showing` state accordingly
-    });
-  });
-}
-// const categories = await getCategoryIds();
-
-// const allClues = categories.map((cat) => getCategory(cat));
-
-// console.log(allClues);
-// const catHead = document.createElement("th");
-
-// const questions = document.createElement("tr");
-
-// const header = document.createElement("tr");
-// categories.forEach((category) => {
-//   const th = document.createElement("th");
-//   th.textContent = category.title;
-//   header.appendChild(th);
-// });
-// thead.appendChild(header);
-
-// for (let i = 0; i < numberQuest; i++) {
-//   const questions = document.createElement("tr");
-//   categories.forEach((category) => {
-//     const td = document.createElement("td");
-//     td.textContent = "?"; //add spaan
-//     questions.appendChild(td);
-//   });
-//   tbody.appendChild(questions);
-// }
 
 /** Handle clicking on a clue: show the question or answer.
  *
@@ -160,34 +187,38 @@ function attachClickEventsToQuestions() {
  * - if currently "answer", ignore click
  * */
 
-function handleClick(evt) {
-  const spinner = document.getElementById("spinner");
-  table.style.display = "none";
-  spinner.style.display = "block";
+function handleClick(clue, td) {
+  return function () {
+    // First check if the clue's showing state is null (not shown yet)
+    if (clue.showing === null) {
+      // Show the question
+      td.innerHTML = clue.question;
+      clue.showing = "question"; // Update state to indicate the question is shown
+    } else if (clue.showing === "question") {
+      // The question was shown, now show the answer and update the background
+      td.innerHTML = clue.answer;
+      clue.showing = "answer"; // Update state to indicate the answer is shown
+      td.style.backgroundColor = "green";
+      td.style.color = "white";
+    }
+    // If the state is "answer", we do nothing to avoid further updates
+  };
 }
 
 /** Wipe the current Jeopardy board, show the loading spinner,
  * and update the button used to fetch data.
  */
 
-function showLoadingView() {
-  let spinner = document.getElementById("spinner");
-  if (!spinner) {
-    // If the spinner doesn't exist, create it
-    spinner = document.createElement("div");
-    spinner.setAttribute("id", "spinner");
-    // Example using Bootstrap spinner
-    spinner.innerHTML =
-      '<div class="spinner-border" role="status"><span class="sr-only">Loading...</span></div>';
-    document.body.appendChild(spinner);
+function showLoadingView(text) {
+  const spinner = document.getElementById("spinner");
+  if (spinner) {
+    if (text === startGame.innerText) {
+      startGame.innerText = "Loading...";
+    } else if (text === restartGame.innerText) {
+      restartGame.innerText = "Loading...";
+    }
+    spinner.style.display = "block"; // Show the spinner
   }
-  spinner.style.display = "block"; // Show the spinner
-
-  // Center the spinner on the screen
-  spinner.style.position = "fixed";
-  spinner.style.top = "50%";
-  spinner.style.left = "50%";
-  spinner.style.transform = "translate(-50%, -50%)";
 }
 
 /** Remove the loading spinner and update the button used to fetch data. */
@@ -195,6 +226,9 @@ function showLoadingView() {
 function hideLoadingView() {
   const spinner = document.getElementById("spinner");
   if (spinner) {
+    startGame.innerText = "Start!";
+    restartGame.innerText = "Restart!";
+
     spinner.style.display = "none"; // Hide the spinner
   }
 }
@@ -206,36 +240,79 @@ function hideLoadingView() {
  * - create HTML table
  * */
 
-async function setupAndStart() {
-  showLoadingView(); // Show loading spinner
+async function setupAndStart(buttonText) {
+  const board = document.getElementById("board"); // Ensure this points to your board element
+  try {
+    showLoadingView(buttonText); // Show spinner
 
-  await fillTable(); // Populate the table with categories and questions
+    // Check if categories is empty and call saveCategories if necessary
+    if (!categories || categories.length === 0) {
+      await saveCategories(); // This will populate the global `categories` variable
+    }
 
-  hideLoadingView(); // Hide loading spinner after the table is filled
+    hideLoadingView(); // Hide spinner
+    fillTable();
+
+    board.style.display = "block"; // Show the board
+  } catch (error) {
+    const message = axios.isAxiosError(error)
+      ? "Bad Response from API Server."
+      : "Something went wrong.";
+    hideLoadingView(); // Ensure the spinner is hidden on error
+    console.error("Error during setup and start:", error);
+    displayErrorMessage(
+      "An error occurred while setting up the board: " + message
+    );
+  }
 }
 
-/** On click of start / restart button, set up game. */
+/** Function for displaying an error alert via bootstrap.
+ */
+function displayErrorMessage(message) {
+  // Find or create a container for the alert messages
+  let alertContainer = document.getElementById("alert-container");
+  if (!alertContainer) {
+    alertContainer = document.createElement("div");
+    alertContainer.id = "alert-container";
+    document.body.prepend(alertContainer); // Prepend to the body or another suitable container
+  }
 
-// TODO
+  // Create the alert div and add Bootstrap classes for styling
+  const alertDiv = document.createElement("div");
+  alertDiv.className = "alert alert-danger alert-dismissible fade show";
+  alertDiv.role = "alert";
+  alertDiv.innerHTML = `${message}<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>`;
 
-/** On page load, add event handler for clicking clues */
+  // Append the alert to the container
+  alertContainer.appendChild(alertDiv);
 
-// TODO
+  // Optionally set a timeout to auto-dismiss the alert after some time
+  setTimeout(() => {
+    if (alertDiv) {
+      alertDiv.remove();
+    }
+  }, 5000); // Auto-dismiss after 5 seconds
+}
+
 const startGame = document.getElementById("start");
 const restartGame = document.getElementById("restart");
 
-document.addEventListener("DOMContentLoaded", (event) => {
+/** On click of start / restart button, set up game. */
+
+document.addEventListener("DOMContentLoaded", async () => {
   if (startGame) {
-    startGame.addEventListener("click", async function () {
-      console.log("Game started!");
-      await setupAndStart(); // Setup and start the game
+    startGame.addEventListener("click", async () => {
+      await setupAndStart(startGame.innerText);
     });
   }
 
   if (restartGame) {
-    restartGame.addEventListener("click", async function () {
-      console.log("Game restarted!");
-      await setupAndStart(); // Restart the game
+    restartGame.addEventListener("click", async () => {
+      await setupAndStart(restartGame.innerText);
     });
   }
 });
+
+/** On page load, add event handler for clicking clues */
+
+// Implemented in `fillTable`
