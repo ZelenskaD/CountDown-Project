@@ -1,19 +1,23 @@
-const input = document.querySelector("#fruitInput");
-const suggestions = document.querySelector(".suggestions ul");
-const ulBlock = document.querySelector("#block");
+const input = document.querySelector("#fruitInput"); // select input el with id #fruitInput
+const suggestions = document.querySelector(".suggestions ul"); //unordered list el within an el with class "sugg"
+const ulBlock = document.querySelector("#block"); //el with id#block
 
 document.addEventListener("DOMContentLoaded", () => {
+  //when the dom content is loaded
   input.addEventListener("input", () => {
-    const text = input.value.toLowerCase();
+    // event list to input el for input events (user types) (which means the event will be triggered whenever the input field's value changes )
 
-    const filteredFruits = search(text);
+    const text = input.value.toLowerCase(); //get current value of input el and convert it to lowercase
 
-    suggestions.innerHTML = "";
+    const filteredFruits = search(text); //Filtered the fruits array based on the input text (search func with 'text' var as its arg)
+
+    suggestions.innerHTML = ""; //clear sugg ->>> by setting innerHTML property  to an empty string
 
     if (filteredFruits.length === 0) {
+      //no filt fru -> hide sugg block
       ulBlock.style.display = "none";
     } else {
-      ulBlock.style.display = "block";
+      ulBlock.style.display = "block"; //otherwise -> show sugg block
     }
 
     filteredFruits.forEach((fruit) => {
@@ -24,7 +28,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
       li.innerHTML = fruit.replace(text, "<b>" + text + "</b>");
 
-      suggestions.appendChild(li);
+      suggestions.appendChild(li); // Append the list item to the suggestions list
+
       li.addEventListener("mouseover", () => {
         li.style.backgroundColor = "#FAF0E6";
       });
@@ -143,5 +148,4 @@ function useSuggestion(e) {
   ulBlock.style.display = "none";
 }
 
-input.addEventListener("keyup", searchHandler);
 suggestions.addEventListener("click", useSuggestion);

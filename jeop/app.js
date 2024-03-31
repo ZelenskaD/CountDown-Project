@@ -38,6 +38,10 @@ function timeout(ms, errorMessage = "Operation timed out") {
  * Returns array of category ids
  */
 
+function delay(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
 async function getCategoryIds() {
   try {
     const response = await Promise.race([
