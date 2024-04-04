@@ -34,7 +34,7 @@
     <!-- top navigation bar -->
     <nav>
       <div class="navbar-brand">
-        <a class="nav-link" href="#" id="nav-all">Hack or Snooze</a>
+        <a class="nav-link" href="#" id="nav-all">Hack or Snooze </a>
       </div>
       <div class="main-nav-links" id="nav-links" style="display: none">
         |
@@ -79,6 +79,12 @@
 
       <!-- List of all stories -->
       <ol id="all-stories-list" class="stories-list"></ol>
+
+      <!--      LIST OF FAVORITE STORIES-->
+      <ol id="favorited-stories" class="stories-list" style="display: none;"></ol>
+
+      <!--      LIST OF MY STORIES-->
+      <ol id="my-stories" class="stories-list" style="display: none;"></ol>
     </section>
 
     <!-- Login and signup forms -->
@@ -133,6 +139,18 @@
         </div>
         <button type="submit">create account</button>
       </form>
+    </section>
+
+    <!--    USER PROFILE-->
+    <section id="user-profile" style="display: none;">
+      <div class="user-profile-box container">
+        <h4>User Profile Info</h4>
+        <section>
+          <div>Name: <span id="profile-name"></span></div>
+          <div>Username: <span id="profile-username"></span></div>
+          <div>Account Created: <span id="profile-account-date"></span></div>
+        </section>
+      </div>
     </section>
 
     <!-- Library JS & our JS -->

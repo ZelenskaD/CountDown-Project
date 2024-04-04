@@ -37,3 +37,15 @@
 .story-user {
   display: block;
 }
+
+.star {
+  cursor: pointer;
+}
+
+.delete {
+  cursor: pointer;
+}
+
+.icon-hover:hover {
+  color: #ff0000; /* Change to the color you want on hover */
+}

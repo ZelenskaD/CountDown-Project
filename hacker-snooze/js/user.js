@@ -114,7 +114,7 @@ function updateUIOnUserLogin() {
 
   $navLinks.show();
 
-  $allStoriesList.show();
+  putStoriesOnPage()
 
   updateNavOnLogin();
 }

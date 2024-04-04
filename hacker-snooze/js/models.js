@@ -89,6 +89,24 @@ class StoryList {
 
     return story;
   }
+
+  getStoryById(id) {
+    return this.stories.find(story => story.storyId === id) // if no story, returns undefined
+  }
+
+  async deleteStory(user, id) {
+    const token = user.loginToken;
+    await axios({
+      url: `${BASE_URL}/stories/${id}`,
+      method: "DELETE",
+      data: { token: user.loginToken }
+    });
+
+    this.stories = this.stories.filter(story => story.storyId !== id); // delete from this class
+
+    user.ownStories = user.ownStories.filter(s => s.storyId !== id); // delete from user's stories
+    user.favorites = user.favorites.filter(s => s.storyId !== id);  // delete from favorites if its there
+  }
 }
 
 /******************************************************************************
@@ -116,6 +134,31 @@ class User {
     // store the login token on the user so it's easy to find for API calls.
     this.loginToken = token;
   }
+
+  async addStoryToFavorites(story) {
+    const token = this.loginToken;
+    await axios({
+      url: `${BASE_URL}/users/${this.username}/favorites/${story.storyId}`,
+      method: "POST",
+      data: { token },
+    });
+    this.favorites = [story, ...this.favorites]
+  }
+
+  async removeStoryFromFavoritesById(id) {
+    const token = this.loginToken;
+    await axios({
+      url: `${BASE_URL}/users/${this.username}/favorites/${id}`,
+      method: "DELETE",
+      data: { token },
+    });
+    this.favorites = this.favorites.filter(story => story.storyId !== id)
+  }
+
+  isStoryInFavorites(id) {
+    return this.favorites.some(story => story.storyId === id)
+  }
+
 
   /** Register new user in API, make User instance & return it.
    *
