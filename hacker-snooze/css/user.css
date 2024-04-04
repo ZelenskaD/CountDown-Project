@@ -11,14 +11,13 @@
 
 .account-forms-container {
   padding-left: 20px;
+  width: 95.5%;
 }
 
-.user-profile-box {
-  padding: 10px 20px 20px;
-  font-size: 1rem;
+.stories-container {
+  width: 95.5%;
 }
 
-.user-profile-box > * {
-  margin: 10px 0;
+#nav-user-profile {
+  width: 95.5%;
 }
-

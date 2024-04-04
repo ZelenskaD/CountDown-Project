@@ -6,8 +6,10 @@
 
 .stories-list > li {
   color: gray;
-  font-size: 0.8rem;
-  margin: 10px 0;
+  font-size: 1rem;
+  padding: 10px;
+  margin-bottom: 10px; /* Space between list items */
+  border-bottom: 1px solid #ccc; /* Adds a subtle line between items */
 }
 
 #stories-loading-msg {
@@ -15,7 +17,6 @@
   font-size: 150%;
   margin: 20px 30px;
 }
-
 
 /* Individual stories */
 
@@ -30,14 +31,6 @@
   text-decoration: none;
 }
 
-.story-author {
-  margin-left: 2em;
-}
-
-.story-user {
-  display: block;
-}
-
 .star {
   cursor: pointer;
 }
@@ -48,4 +41,39 @@
 
 .icon-hover:hover {
   color: #ff0000; /* Change to the color you want on hover */
+}
+
+.story-item::before {
+  content: counter(flex-counter) ". "; /* Displays the counter value and a period */
+}
+
+.story-item {
+  counter-increment: flex-counter;
+  display: flex; /* Makes the link take up the full width */
+  align-items: start;
+  gap: 10px;
+}
+
+.story-link {
+  font-size: 1rem;
+}
+
+.story-hostname {
+  font-size: 0.9 rem;
+}
+
+.story-user,
+.story-author {
+  display: block; /* Puts each on a new line */
+  color: black;
+  margin: 4px 0; /* Adjust spacing as needed */
+  font-size: 1rem;
+}
+
+.story-author {
+  color: green;
+}
+
+.story-user {
+  color: rgb(227, 162, 9);
 }
