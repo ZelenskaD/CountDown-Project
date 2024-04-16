@@ -69,10 +69,17 @@ async function getCategoryIds() {
 
 async function getCategory(catId) {
   try {
+    // Use 'Promise.race' to race two Promises against each other:
+    // 1. A promise returned by axios.get, which attempts to fetch category data from the API.
+    // 2. A timeout promise created by calling the 'timeout' function, which will automatically reject after 5000 milliseconds.
     const res = await Promise.race([
       axios.get(`${base_API_URL}/category`, { params: { id: catId } }),
       timeout(5000),
     ]);
+
+    // If the axios.get promise resolves first (i.e., the request completes before the timeout),
+    // 'res' will contain the response from the API.
+    // You can proceed to use 'res' for further processing, e.g., extracting and returning the desired data.h
 
     // Check if data and clues are present in the response
     if (!res.data || !res.data.clues) {
@@ -94,6 +101,10 @@ async function getCategory(catId) {
     throw error;
   }
 }
+// If either the axios.get request fails (e.g., due to network issues or server errors)
+// or the timeout promise rejects first (i.e., the request takes longer than 5 seconds),
+// this 'catch' block will execute, handling the error.
+// You can log the error, throw it, or handle it as appropriate for your application's needs.
 
 /** Saves the categories to the global variable categories. This is to reduce API calls
  *
@@ -136,7 +147,7 @@ function shuffleAndTake6() {
 
 function fillTable() {
   const table = document.createElement("table");
-  table.setAttribute("id", "jeopardy"); // Ensure this ID matches your table container ID
+  table.setAttribute("id", "jeopardy");
   table.classList.add("table", "fixed-size-table");
   const thead = document.createElement("thead");
   const tbody = document.createElement("tbody");
@@ -177,7 +188,7 @@ function fillTable() {
   table.appendChild(thead);
   table.appendChild(tbody);
 
-  const board = document.getElementById("board"); // Ensure this ID matches your main container for the game
+  const board = document.getElementById("board");
   board.innerHTML = ""; // Clear previous game content
   board.appendChild(table); // Append the newly created table
   board.style.display = "block"; // Ensure the board is shown

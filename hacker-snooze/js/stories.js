@@ -145,22 +145,25 @@ $submitForm.on("submit", CreateNewStory);
 
 async function setStoryAsFavorite(evt) {
   console.debug("setStoryAsFavorite", evt);
-  const star = evt.currentTarget.children[0];
-  const classList = star.classList;
+  const star = evt.currentTarget.children[0]; // Accesses the first child of the event's current target, which should be the star icon
+  const classList = star.classList; // Retrieves the class list of the star icon to manipulate its classes
 
-  const storyId = evt.currentTarget.parentNode.id;
-  const story = storyList.getStoryById(storyId);
+  const storyId = evt.currentTarget.parentNode.id; // Extracts the story's ID from the parent element's ID
+  const story = storyList.getStoryById(storyId); // Retrieves the story object using its ID
 
   if (classList.contains("far")) {
+    // Checks if the star has the class "far", indicating it's not a favorite
     // "far" is the class when the story is not favorited
-    classList.replace("far", "fas");
-    await currentUser.addStoryToFavorites(story);
+    classList.replace("far", "fas"); // Changes the icon to "fas" indicating it's now a favorite
+
+    await currentUser.addStoryToFavorites(story); // Adds the story to the user's favorites
   } else {
-    classList.replace("fas", "far");
-    await currentUser.removeStoryFromFavoritesById(storyId);
+    // If the star does not have "far", it must be a favorite already
+    classList.replace("fas", "far"); // Reverts the icon to "far" indicating it's not a favorite anymore
+    await currentUser.removeStoryFromFavoritesById(storyId); // Removes the story from the user's favorites
   }
 
-  star.classList = classList;
+  star.classList = classList; // Updates the star icon's class list to reflect the change in favorite status
 }
 
 $allStoriesList.on("click", ".star", setStoryAsFavorite);
