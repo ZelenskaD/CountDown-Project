@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="/static/styles.css" />
+
+    <title>Home</title>
+  </head>
+  <body>
+    <header>
+      <h1>Madlibs</h1>
+    </header>
+
+    <form id="form" action="/story">
+      <label for="place">Place:</label>
+      <input type="text" id="place" name="place" placeholder="ex: condo" />
+
+      <label for="noun">Noun:</label>
+      <input type="text" id="noun" name="noun" placeholder="ex: dragon" />
+
+      <label for="verb">Verb:</label>
+      <input type="text" id="verb" name="verb" placeholder="ex: eat" />
+
+      <label for="adjective">Adjective:</label>
+      <input
+        type="text"
+        id="adjective"
+        name="adjective"
+        placeholder="ex: frozen"
+      />
+
+      <label for="plural_noun">Plural_noun:</label>
+      <input
+        type="text"
+        id="plural_noun"
+        name="plural_noun"
+        placeholder="ex: popsicles"
+      />
+
+      <button>Submit!</button>
+    </form>
+  </body>
+</html>
