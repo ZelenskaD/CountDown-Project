@@ -1,3 +1,4 @@
+-- write your queries here
 SELECT * FROM owners FULL JOIN  vehicles ON owners.id = owner_id;
 
 SELECT first_name, last_name, COUNT(*) AS count  FROM owners JOIN vehicles ON owners.id = owner_id GROUP BY owners.id ORDER BY count asc;
