@@ -1,0 +1,5 @@
+- What ***git*** command creates a branch? - git checkout -b
+- What is the difference between a fast-forward and recursive merge? - So, the fast-forward merge is a specific type of merge that happens in a straightforward scenario where one branch has no new changes since the branch you are merging into. The recursive merge is a general strategy that Git employs when combining changes from divergent branches.
+- What ***git*** command changes to another branch? - git checkout ____ <-- name of branch
+- What ***git*** command deletes a branch? - git branch -D/-d
+- How do merge conflicts happen? -When Git encounters conflicting changes to the same file in different branches during a merge, it cannot automatically determine which version to choose. In such cases, Git marks the conflict, and it's up to the user to manually resolve the conflicting changes before completing the merge.

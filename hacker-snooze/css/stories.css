@@ -1,0 +1,79 @@
+/* Lists of stories */
+
+.stories-list {
+  margin: 20px 5px;
+}
+
+.stories-list > li {
+  color: gray;
+  font-size: 1rem;
+  padding: 10px;
+  margin-bottom: 10px; /* Space between list items */
+  border-bottom: 1px solid #ccc; /* Adds a subtle line between items */
+}
+
+#stories-loading-msg {
+  font-weight: bold;
+  font-size: 150%;
+  margin: 20px 30px;
+}
+
+/* Individual stories */
+
+.story-link {
+  color: black;
+  font-size: 0.85rem;
+  font-weight: normal;
+  margin: 18px 0;
+}
+
+.story-link:hover {
+  text-decoration: none;
+}
+
+.star {
+  cursor: pointer;
+}
+
+.delete {
+  cursor: pointer;
+}
+
+.icon-hover:hover {
+  color: #ff0000; /* Change to the color you want on hover */
+}
+
+.story-item::before {
+  content: counter(flex-counter) ". "; /* Displays the counter value and a period */
+}
+
+.story-item {
+  counter-increment: flex-counter;
+  display: flex; /* Makes the link take up the full width */
+  align-items: start;
+  gap: 10px;
+}
+
+.story-link {
+  font-size: 1rem;
+}
+
+.story-hostname {
+  font-size: 0.9 rem;
+}
+
+.story-user,
+.story-author {
+  display: block; /* Puts each on a new line */
+  color: black;
+  margin: 4px 0; /* Adjust spacing as needed */
+  font-size: 1rem;
+}
+
+.story-author {
+  color: green;
+}
+
+.story-user {
+  color: rgb(227, 162, 9);
+}

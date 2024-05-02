@@ -1,0 +1,78 @@
+/* some colors you may find useful:
+  #115ff4
+  #060ce9
+  #28a200
+  #8d2ab5
+  #74119c
+*/
+#body {
+  background-color: #bc94ee;
+  font-family: "Reddit Mono", monospace;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+
+#spinner {
+  display: none;
+  /* Other styling for positioning and appearance */
+}
+#board {
+  display: none; /* Ensure this is set to 'block' or flex if you want to use flex properties */
+  justify-content: center;
+  align-items: center;
+  width: 80%; /* Adjusted to 70% for better visibility */
+  /* Removed margin: 20%; This is not needed with fixed positioning for centering */
+  position: fixed; /* Changed from relative to fixed */
+  top: 50%; /* Center vertically */
+  left: 50%; /* Center horizontally */
+  transform: translate(-50%, -50%); /* Adjust the board to be truly centered */
+  background-color: rgb(0, 30, 128);
+  border: 2px solid #fff; /* Outer border */
+  text-align: center;
+}
+
+#board table {
+  width: 100%; /* Full width of the board */
+  border-collapse: collapse; /* Ensures borders collapse into a single border */
+  margin-bottom: 0;
+}
+
+#board td {
+  color: white;
+  border: 2px solid rgb(255, 255, 255); /* Borders for th and td */
+  padding: 10px; /* Adjust padding as necessary */
+  text-align: center; /* Center text horizontally */
+  background-color: rgb(0, 30, 128);
+}
+
+#board th {
+  background-color: #115ff4; /* Color for table headers */
+  font-size: 1.5rem;
+}
+
+.align-bottom {
+  vertical-align: bottom; /* Align content to the bottom of the cell */
+}
+
+.align-top {
+  vertical-align: top; /* Align content to the top of the cell */
+}
+
+.fixed-size-table {
+  table-layout: fixed;
+  width: 100%; /* Full width of the container */
+}
+
+.fixed-size-table td,
+.fixed-size-table th {
+  width: 16.66%; /* Approximately 100% divided by 6 columns */
+  height: 100px; /* Fixed height, adjust as needed */
+  text-align: center;
+  vertical-align: middle;
+  white-space: normal; /* Allow text wrapping */
+  overflow-wrap: break-word; /* Break words to prevent overflow */
+}
+
+.fa-circle-question {
+  font-size: 2rem;
+}

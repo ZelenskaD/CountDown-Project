@@ -6,6 +6,7 @@ SELECT matchid, player FROM goal
 SELECT id,stadium,team1,team2
   FROM game
 JOIN goal
+SELECT id,stadium,team1,team2
 ON goal.matchid = game.id WHERE game.id = 1012 LIMIT 1;
 
 

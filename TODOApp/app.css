@@ -1,0 +1,18 @@
+body {
+    background-image: url('./images/coffee-break-sticker-cute-hot-drink-mug-doodle-with-text-sticker-with-white-contour-for-planner-scrapbooking-hand-drawn-colorful-illustration-isolated-on-transparent-background-png.webp');
+    background-color: blanchedalmond;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    height: 800px; 
+    border: 2px solid black; 
+    background-attachment: fixed;
+    position:absolute;
+
+  }
+
+.shared{
+    font-family: 'Protest Riot', sans-serif;
+  }
+  
