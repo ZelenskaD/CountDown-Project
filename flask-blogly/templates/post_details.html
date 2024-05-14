@@ -3,39 +3,37 @@
 <head>
     <title>User Profile</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        h2 {
+            font-weight: bold;
+        }
+        h3 {
+            font-weight: normal;
+            font-size: 16px;
+        }
+        h4 {
+            font-style: italic;
+            font-size: 14px;
+        }
+    </style>
 </head>
 <body>
     <div class="container mt-4">
         <div class="d-flex align-items-center border p-4 shadow rounded">
             <!-- Profile Picture on the Left -->
-            <img src="{{ user.image_url }}" alt="User Image" class="img-thumbnail" width="150" style="margin-right: 20px;">
+
 
             <!-- User Info on the Right -->
             <div>
-                <h1>{{ user.first_name }} {{ user.last_name }}</h1>
-
+                <h1> Post Detail Page</h1>
+                <h2>{{ post.title}} </h2>
+   <h3>{{post.content}}</h3>
+                <h4>By {{user.first_name}} {{user.last_name}}</h4>
                 <div>
-                    <a href="{{ url_for('edit_user', user_id=user.id) }}" class="btn btn-primary mr-2">Edit</a>
-                    <form action="{{ url_for('delete_user', user_id=user.id) }}" method="post" style="display: inline;">
+                    <a href="{{ url_for('user_details', user_id=user.id) }}" class="btn btn-outline-info mr-2">Cancel</a>
+                    <a href="{{ url_for('edit_post', post_id=post.id) }}" class="btn btn-primary mr-2">Edit</a>
+                    <form action="{{ url_for('delete_post', post_id=post.id) }}" method="post" style="display: inline;">
                         <button type="submit" class="btn btn-danger">Delete</button>
-                          <h2>Posts</h2>
-
-<ul>
-    {% if posts %}
-        {% for post in posts %}
-            <li>
-                <a href="{{ url_for('post_details', post_id=post.id) }}">{{ post.title }}</a>
-            </li>
-        {% endfor %}
-    {% else %}
-       <h3 style="font-weight: normal; font-size: 16px;">This user doesn't have any posts yet.</h3>
-    {% endif %}
-</ul>
-
-<a href="{{ url_for('show_add_form', user_id=user.id) }}" class="btn btn-primary">Add Post</a>
-
-
-
                     </form>
                 </div>
             </div>
