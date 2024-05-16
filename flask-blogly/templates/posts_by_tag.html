@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}Posts by Tag: {{tag.name}} {% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+<form class="p-4 border rounded shadow" style="width: 350px; background-color: white;">
+<h1> Posts by Tag: </h1>
+    <h2 style="text-align: center; color: white; background-color: lightblue; border: 2px solid navy; border-radius: 10px; font-size: 30px; font-weight: bold; font-style: italic; ">{{tag.name}}</h2>
+    <ul>
+        {% for post in posts %}
+            <li>
+                <a href="{{ url_for('post_details', post_id=post.id) }}">{{ post.title }} </a>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <a href="{{ url_for('edit_tag', tag_id=tag.id) }}" class="btn btn-primary">Edit</a>
+    <a href="{{ url_for('delete_tag', tag_id=tag.id) }}" class="btn btn-danger">Delete</a>
+</form>
+</div>
+{% endblock %}

@@ -32,8 +32,27 @@ class Post(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
 
+    tags = db.relationship('Tag', secondary='posts_tags', back_populates='posts')
+
     def __repr__(self):
         return f"<Post id={self.id} title={self.title} content={self.content}>"
+
+
+class PostTag(db.Model):
+    """Mapping  a post to tag."""
+    __tablename__ = "posts_tags"
+
+    post_id = db.Column(db.Integer, db.ForeignKey("posts.id"), primary_key=True, nullable=False)
+    tag_id = db.Column(db.Integer, db.ForeignKey("tags.id"), primary_key=True, nullable=False)
+
+
+class Tag(db.Model):
+    """Tags. Posts can be assigned to this"""
+    __tablename__ = "tags"
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(30), unique=True)
+
+    posts = db.relationship('Post', secondary='posts_tags', back_populates='tags')
 
 
 class PredefinedUsersStatus(db.Model):

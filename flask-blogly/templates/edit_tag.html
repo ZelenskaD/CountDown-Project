@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}Edit Tag {% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+    <form action="{{ url_for('edit_tag', tag_id=tag.id) }}" method="post" class="p-4 border rounded shadow" style="width: 350px; background-color: white;">
+        <h1>Edit a tag </h1>
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" name="name" id="name" class="form-control" placeholder="{{tag.name}}" required>
+        </div>
+
+        <button type="submit" class="btn btn-success" > Edit</button>
+        <a href="/tags" class="btn btn-info">Cancel</a>
+
+
+    </form>
+</div>
+{% endblock %}

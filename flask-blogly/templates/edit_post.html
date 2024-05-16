@@ -16,6 +16,18 @@
                 <label for="content">Content</label>
                 <textarea class="form-control" id="content" name="content" rows="5" required>{{ post.content }}</textarea>
             </div>
+           <div class="form-group">
+    <label>Tags:</label>
+    {% for tag in all_tags %}  <!-- Assuming all_tags is passed from the Flask route and contains all available tags -->
+    <div class="form-check">
+        <input class="form-check-input" type="checkbox" name="tags[]" value="{{ tag.id }}" id="tag_{{ tag.id }}"
+               {% if tag in post.tags %} checked {% endif %}>
+        <label class="form-check-label" for="tag_{{ tag.id }}">
+            {{ tag.name }}
+        </label>
+    </div>
+    {% endfor %}
+</div>
             <a href="{{ url_for('user_details', user_id=user.id) }}" class="btn btn-outline-info mr-2">Cancel</a>
             <button type="submit" class="btn btn-success">Edit</button>
         </form>
