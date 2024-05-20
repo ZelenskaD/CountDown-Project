@@ -1,6 +1,7 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, redirect, request, flash
 from flask_debugtoolbar import DebugToolbarExtension
 from models import Employee, Department, db, connect_db
+from forms import AddSnackForm, NewEmployeeForm
 
 app = Flask(__name__)
 
@@ -27,3 +28,40 @@ def phone_list():
 
     emps = Employee.query.all()
     return render_template("phones.html", emps=emps)
+
+
+@app.route('/')
+def home_page():
+    return render_template("home.html")
+
+
+@app.route('/snacks/new', methods=["GET", "POST"])
+def add_snack():
+    print(request.form)
+    form = AddSnackForm()
+    if form.validate_on_submit():
+        name = form.name.data
+        price = form.price.data
+        flash(f"Created new snack: name is {name}, price is ${price}")
+        return redirect('/')
+    else:
+        return render_template("add_snack_form.html", form=form)
+
+
+@app.route('/employees/new', methods=["GET", "POST"])
+def add_employee():
+    form = NewEmployeeForm()
+    depts = db.session.query(Department.dept_code, Department.dept_name)
+    form.dept_code.choices = depts
+
+    if form.validate_on_submit():
+        name = form.name.data
+        state = form.state.data
+        dept_code = form.dept_code.data
+
+        emp = Employee(name=name, state=state, dept_code=dept_code)
+        db.session.add(emp)
+        db.session.commit()
+        return redirect('/phones')
+    else:
+        return render_template('add_employee_form.html', form=form)
