@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}Create New Cupcake{% endblock %}
+
+{% block content %}
+
+<h1> Cupcake List</h1>
+<a href="{{ url_for('make_new_cupcake') }}" class="btn btn-secondary">Add New Cupcake</a>
+    <ul id ="list-cupcakes">
+
+    </ul>
+
+
+{% endblock%}

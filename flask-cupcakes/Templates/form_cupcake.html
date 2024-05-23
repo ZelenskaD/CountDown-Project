@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}Create New Cupcake{% endblock %}
+
+{% block content %}
+
+
+   <div class="d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+        <!-- The form is centered and styled as a bordered box -->
+
+        <form action="/" method="POST" id ="cupcake-form" class="p-4 border rounded shadow" style="width: 350px; background-color: white;">
+              <h1 class="text-center">Create  New Cupcake</h1>
+            <div class="form-group">
+                <label for="flavor">Flavor:</label>
+                <input type="text" name="flavor" id="flavor" class="form-control" placeholder="Flavor" required>
+            </div>
+            <div class="form-group">
+                <label for="Size">Size:</label>
+                <input type="text" name="size" id="size" class="form-control" placeholder="Size" required>
+            </div>
+             <div class="form-group">
+                <label for="Rating">Rating:</label>
+                <input type="text" name="rating" id="rating" class="form-control" placeholder="Rating" required>
+            </div>
+            <div class="form-group">
+                <label for="image">Image URL:</label>
+                <input type="text" name="image" id="image" class="form-control" placeholder="Image URL (optional)">
+            </div>
+            <!-- Container for both buttons, using flexbox for alignment -->
+            <div class="d-flex justify-content-between">
+<button type="submit" class="btn btn-success">Add Cupcake</button>
+        <a href="/" id="redirect-button" class="btn btn-outline-info">Back to Cupcakes List</a>
+            </div>
+        </form>
+    </div>
+    {% endblock%}
