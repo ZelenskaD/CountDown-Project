@@ -1,0 +1,134 @@
+{% extends "main/main_page.html" %}
+
+{% block title %}
+Create Your Character - Blades In The Dark
+{% endblock %}
+
+{% block content %}
+<div class="row special-background">
+  <div class="col-md-6">
+    <div class="form-container">
+      <h1>Create Your Character</h1>
+      <form action="{{ url_for('homepage') }}" method="post">
+        <div class="form-group">
+          <label for="crew">Crew: </label>
+          <input type="text" class="form-control" id="crew" name="crew" placeholder="...">
+        </div>
+        <div class="form-group">
+          <label for="newChar">Name: </label>
+          <input type="text" class="form-control" id="newChar" name="newChar" placeholder="Type desired name">
+        </div>
+        <div class="form-group">
+          <label for="alias">Alias: </label>
+          <input type="text" class="form-control" id="alias" name="alias" placeholder="...">
+        </div>
+        <div class="form-group">
+          <label for="look">Look: </label>
+          <textarea class="form-control" id="look" name="look" placeholder="..."></textarea>
+        </div>
+        <div class="form-group">
+          <label for="heritage">Heritage: </label>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="heritage" id="heritage1" value="akoros">
+            <label class="form-check-label" for="heritage1">Akoros</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="heritage" id="heritage2" value="dagger_isles">
+            <label class="form-check-label" for="heritage2">The Dagger Isles</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="heritage" id="heritage3" value="iruvia">
+            <label class="form-check-label" for="heritage3">Iruvia</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="heritage" id="heritage4" value="severos">
+            <label class="form-check-label" for="heritage4">Severos</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="heritage" id="heritage5" value="skovlan">
+            <label class="form-check-label" for="heritage5">Skovlan</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="heritage" id="heritage6" value="tycheros">
+            <label class="form-check-label" for="heritage6">Tycheros</label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="background">Background: </label>
+          <select class="form-control" id="background" name="background">
+            <option value="academic">Academic</option>
+            <option value="labor">Labor</option>
+            <option value="law">Law</option>
+            <option value="trade">Trade</option>
+            <option value="military">Military</option>
+            <option value="noble">Noble</option>
+            <option value="underworld">Underworld</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="vice">Vice: </label>
+          <select class="form-control" id="vice" name="vice">
+            <option value="faith">Faith</option>
+            <option value="gambling">Gambling</option>
+            <option value="luxury">Luxury</option>
+            <option value="obligation">Obligation</option>
+            <option value="pleasure">Pleasure</option>
+            <option value="stupor">Stupor</option>
+            <option value="weird">Weird</option>
+          </select>
+        </div>
+        <div class="container table-container" style="margin-top: 60px;">
+          <h2>Harm Table</h2>
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th scope="col">Level</th>
+                <th scope="col">Notes</th>
+                <th scope="col">Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>3</td>
+                <td><textarea class="form-control" name="harm_level_3" rows="3" placeholder="Enter notes..."></textarea></td>
+                <td>NEED HELP</td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td><textarea class="form-control" name="harm_level_2" rows="3" placeholder="Enter notes..."></textarea></td>
+                <td>-1D</td>
+              </tr>
+              <tr>
+                <td>1</td>
+                <td><textarea class="form-control" name="harm_level_1" rows="3" placeholder="Enter notes..."></textarea></td>
+                <td>Less Effect</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="container" style="margin-top: 60px;">
+          <h1>Armor Uses</h1>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="armor" id="armor" value="armor">
+            <label class="form-check-label" for="armor">Armor</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="armor" id="heavy" value="heavy">
+            <label class="form-check-label" for="heavy">Heavy</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="armor" id="special" value="special">
+            <label class="form-check-label" for="special">Special</label>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Done</button>
+      </form>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="form-container">
+      <h2>Form 2</h2>
+    </div>
+  </div>
+</div>
+{% endblock %}

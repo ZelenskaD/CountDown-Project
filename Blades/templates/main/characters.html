@@ -1,0 +1,18 @@
+{% extends "main/main_page.html" %}
+
+{% block title %}
+Characters - Blades In The Dark
+{% endblock %}
+
+{% block content %}
+<div class="row">
+  <div class="col-8">
+    <h1>Characters</h1>
+  </div>
+  <div class="col-4 ml-auto custom-margin">
+    <h1>Don't have any characters?</h1>
+    <h2>Hurry up! Make one!</h2>
+    <a href="{{ url_for('create_new_char') }}" class="btn btn-secondary">Create New Character</a>
+  </div>
+</div>
+{% endblock %}
