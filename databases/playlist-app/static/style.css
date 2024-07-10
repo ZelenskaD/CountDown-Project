@@ -1,0 +1,10 @@
+#flash {
+    color: #155724; /* dark green text color for success */
+    background-color: #d4edda; /* light green background for success */
+    border: 1px solid #c3e6cb; /* green border color */
+    border-radius: 5px; /* rounded corners */
+    padding: 10px; /* some padding around the text */
+    margin: 10px 0; /* space above and below the message */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2); /* subtle shadow for depth */
+    text-align: center; /* center text alignment */
+}

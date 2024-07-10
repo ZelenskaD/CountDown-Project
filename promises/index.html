@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+  <style>
+    #card-container {
+      position: relative;
+      /*width: 900px; !* Adjust width as needed *!*/
+      height: 94vh; /* Adjust height as needed */
+      border: 1px solid black; /* Optional: to visualize the container */
+        background-color: #006400;
+
+
+    }
+    #draw-card-btn{
+        background-color:#8FBC8F;
+        color: white;
+        font-size:25px;
+        align-items: center;
+        border: 1px solid black;
+        border-radius: 10px;
+        margin-top:10px;
+        margin-left: 350px;
+        margin-bottom:30px;
+    }
+    .card {
+      position: absolute;
+      transition: transform 0.3s ease;
+    }
+  </style>
+  </head>
+  <body>
+<!--      <div id="number-facts">-->
+<!--           <h1>Numbers API</h1>-->
+<!--      </div>-->
+
+  <div id="card-container">
+      <button class="btn btn-lg btn-secondary justify-content-center " id="draw-card-btn">Gimme a Card!</button>
+  </div>
+
+
+  </body>
+      <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+     <script src="script.js"></script>
+
+</html>
