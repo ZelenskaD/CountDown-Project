@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Async/Await</title>
+<style>
+
+        #card-container {
+            position: relative;
+            width: 400px;
+            height: 600px;
+            background-color: green;
+            border: 1px solid #000;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+
+
+        }
+        .card {
+            position: absolute;
+            top: 0;
+            left: 0;
+            transition: transform 0.2s ease-in-out;
+             margin-right:100px;
+        }
+        .card img {
+            width: 300px;
+            height: 380px;
+            padding: 40px 80px;
+        }
+
+        #draw-button {
+            display: block;
+            margin: 10px auto;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            background-color: #6c757d;
+            color: white;
+            cursor: pointer;
+        }
+        #draw-button:hover {
+            background-color: #5a6268;
+        }
+    </style>
+</head>
+<body>
+<!--   <h1>Numbers API</h1>-->
+<!--<div id="facts">-->
+
+<!--</div>-->
+
+    <div class="justify-content-center" id="main-container">
+        <button id="draw-button">Draw a Card</button>
+        <div id="card-container"></div>
+    </div>
+
+</body>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="app.js"></script>
+</html>
